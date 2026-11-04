@@ -13,7 +13,7 @@ usuário deve informar uma base factível.
 import numpy as np
 
 tolerancia = 1e-9 #define o menor valor que o programa considera diferente de 0
-max_iter = 1000 #número máximo de iterações pra evitar ciclagem
+max_iter = 1000 #número máximo de iterações pra limitar a execução
 
 def fase2_simplex(A, b, c, base):
   #fase2_simplex: retorna (status, x, fx, it); status: ótimo ou ilimitado
@@ -24,7 +24,7 @@ def fase2_simplex(A, b, c, base):
 
   while it < max_iter:
     B = A[:, base] #B = todas as linhas de A, colunas da base
-    N = A[:, nao_base] #N = todas as linhas de A, colonas da nao base (fora da base)
+    N = A[:, nao_base] #N = todas as linhas de A, colunas da nao base (fora da base)
     cB = c[base] #coeficientes das variaveis basicas
     cN = c[nao_base] #coeficientes das variaveis nao basicas
 
@@ -73,7 +73,7 @@ def fase2_simplex(A, b, c, base):
     p = np.argmin(razoes) #posição do x q sai da base
     print(f"x{base[p] + 1} sai da base | passo = {razoes[p]:.6f}")
 
-    #PASSO 6: atualização (nova partição báscia)
+    #PASSO 6: atualização (nova partição básica)
     base[p], nao_base[cNk] = nao_base[cNk], base[p]
     it = it + 1
 
@@ -135,7 +135,7 @@ def entrada():
 #-----------------------------------------
 
 def exemplo(numero):
-  #1: ótimo (x = (3,1,,0,0,0), f = -11) | 2: ilimitado | 3: caso m == n
+  #1: ótimo (x = (3,1,0,0,0), f = -11) | 2: ilimitado | 3: caso m == n
   if numero == 1:
     A = [[1, 1, 1, 0, 0],
          [1, 3, 0, 1, 0],
